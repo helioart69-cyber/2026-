@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#176b45">
+  <meta name="description" content="2026년을 계획하고 기록하는 달력형 투두리스트">
+  <title>푸른하루 · 2026 달력 투두리스트</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23176b45'/%3E%3Cpath d='M18 23h28v25H18z' fill='white'/%3E%3Cpath d='M18 23h28v8H18z' fill='%23a9dfc3'/%3E%3Cpath d='M24 17v11M40 17v11' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='m25 39 5 5 10-11' fill='none' stroke='%23176b45' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="cloud-field" aria-hidden="true">
+    <span>☁️</span><span>☁️</span><span>☁️</span><span>☁️</span><span>☁️</span><span>☁️</span>
+  </div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="푸른하루 홈">
+        <span class="brand-mark">✓</span>
+        <span>푸른하루</span>
+      </a>
+      <div class="year-badge"><span>2026</span> YEAR PLANNER</div>
+      <div class="header-actions">
+        <button class="icon-button" id="todayButton" type="button">오늘로</button>
+        <button class="icon-button round" id="themeButton" type="button" aria-label="집중 모드 켜기" aria-pressed="false">◐</button>
+      </div>
+    </header>
+
+    <section class="intro" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow">MY 2026 ROUTINE</p>
+        <h1 id="pageTitle">한 해의 작은 약속을<br><em>차곡차곡.</em></h1>
+      </div>
+      <div class="year-progress">
+        <div class="progress-copy">
+          <span>2026년 진행률</span>
+          <strong id="yearProgressText">0%</strong>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="2026년 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span id="yearProgressBar"></span>
+        </div>
+        <small id="yearProgressDetail">새로운 시작을 준비해요</small>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="2026년 달력과 할 일">
+      <article class="calendar-card">
+        <div class="calendar-toolbar">
+          <div class="month-title">
+            <button class="month-arrow" id="prevMonth" type="button" aria-label="이전 달">‹</button>
+            <div><strong id="monthNumber">09</strong><span id="monthName">SEPTEMBER</span></div>
+            <button class="month-arrow" id="nextMonth" type="button" aria-label="다음 달">›</button>
+          </div>
+          <button class="month-picker-button" id="monthPickerButton" type="button" aria-expanded="false" aria-controls="monthPicker">월 선택</button>
+        </div>
+        <div class="month-picker" id="monthPicker" hidden aria-label="월 선택"></div>
+        <div class="weekdays" aria-hidden="true">
+          <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="2026년 월간 달력"></div>
+        <div class="calendar-legend">
+          <span><i class="dot has-task"></i>할 일 있음</span>
+          <span><i class="dot complete"></i>모두 완료</span>
+        </div>
+      </article>
+
+      <aside class="todo-panel" aria-labelledby="selectedDateTitle">
+        <div class="date-heading">
+          <div>
+            <p id="selectedWeekday">화요일</p>
+            <h2 id="selectedDateTitle">9월 15일</h2>
+          </div>
+          <span class="task-count" id="taskCount">0개</span>
+        </div>
+
+        <form class="todo-form" id="todoForm">
+          <label class="sr-only" for="todoInput">새 할 일</label>
+          <input id="todoInput" name="todo" maxlength="80" autocomplete="off" placeholder="할 일을 입력해 주세요" required>
+          <button type="submit" aria-label="할 일 추가">+</button>
+        </form>
+
+        <div class="filter-tabs" role="tablist" aria-label="할 일 필터">
+          <button type="button" role="tab" data-filter="all" aria-selected="true">전체</button>
+          <button type="button" role="tab" data-filter="active" aria-selected="false">할 일</button>
+          <button type="button" role="tab" data-filter="done" aria-selected="false">완료</button>
+        </div>
+
+        <div class="todo-list-wrap">
+          <ul class="todo-list" id="todoList" aria-live="polite"></ul>
+          <div class="empty-state" id="emptyState">
+            <span aria-hidden="true">🌱</span>
+            <p>아직 할 일이 없어요.</p>
+            <small>작은 계획부터 가볍게 적어보세요.</small>
+          </div>
+        </div>
+
+        <div class="day-summary">
+          <span id="daySummaryText">오늘의 첫 계획을 기다리고 있어요.</span>
+          <button id="clearCompleted" type="button">완료 항목 정리</button>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <span>© 2026 푸른하루</span>
+      <span>계획은 가볍게, 성취는 선명하게.</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
